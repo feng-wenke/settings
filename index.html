@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            /* Smooth transition for theme changes */
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        /* Light theme styles */
+        
+        .light-theme {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        /* Dark theme styles */
+        
+        .dark-theme {
+            background-color: #333333;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body class="light-theme">
+    <!-- Default theme is light -->
+    <div class="container">
+        <h1>Account Settings</h1>
+        <form id="settingsForm">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br><br>
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password"><br><br>
+
+            <label for="theme">Theme:</label>
+            <select id="theme" name="theme">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select><br><br>
+
+            <input type="submit" value="Save Settings">
+        </form>
+    </div>
+    <script>
+        // Function to apply the theme
+        function applyTheme(theme) {
+            document.body.className = theme + '-theme';
+            // Save the theme preference to localStorage
+            localStorage.setItem('theme', theme);
+        }
+
+        // Event listener for form submission
+        document.getElementById('settingsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the selected theme
+            var selectedTheme = document.getElementById('theme').value;
+
+            // Apply the theme and save it to localStorage
+            applyTheme(selectedTheme);
+
+            // Here you could also send the selected theme to the server using AJAX or fetch API
+            // For demonstration purposes, we'll just show an alert
+            alert('Settings saved successfully!');
+        });
+
+        // On page load, apply the saved theme from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve the saved theme from localStorage or default to 'light'
+            var savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
+        });
+    </script>
+</body>
+
+</html>
